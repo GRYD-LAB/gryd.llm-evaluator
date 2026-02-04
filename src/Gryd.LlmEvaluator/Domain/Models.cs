@@ -55,10 +55,10 @@ public sealed record AssertionRule(
 
 public enum ScalarType
 {
-    String,
-    Number,
-    Boolean,
-    Null
+  String,
+  Number,
+  Boolean,
+  Null
 }
 
 public sealed record ScalarValue(ScalarType Type, object? Value);

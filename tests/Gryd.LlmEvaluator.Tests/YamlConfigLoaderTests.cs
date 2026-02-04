@@ -5,24 +5,24 @@ namespace Gryd.LlmEvaluator.Tests;
 
 public sealed class YamlConfigLoaderTests
 {
-    [Fact]
-    public async Task LoadAsync_ParsesConfigurationFiles()
-    {
-        var tempDir = Path.Combine(Path.GetTempPath(), "gryd-" + Guid.NewGuid());
-        Directory.CreateDirectory(tempDir);
+  [Fact]
+  public async Task LoadAsync_ParsesConfigurationFiles()
+  {
+    var tempDir = Path.Combine(Path.GetTempPath(), "gryd-" + Guid.NewGuid());
+    Directory.CreateDirectory(tempDir);
 
-        var configPath = Path.Combine(tempDir, "config.yml");
-        var modelsPath = Path.Combine(tempDir, "models.yml");
-        var templatesDir = Path.Combine(tempDir, "templates");
-        Directory.CreateDirectory(templatesDir);
-        var templatesPath = Path.Combine(templatesDir, "intent.yml");
+    var configPath = Path.Combine(tempDir, "config.yml");
+    var modelsPath = Path.Combine(tempDir, "models.yml");
+    var templatesDir = Path.Combine(tempDir, "templates");
+    Directory.CreateDirectory(templatesDir);
+    var templatesPath = Path.Combine(templatesDir, "intent.yml");
 
-        await File.WriteAllTextAsync(modelsPath, """
+    await File.WriteAllTextAsync(modelsPath, """
 models:
   - id: \"test-model\"
 """);
 
-        await File.WriteAllTextAsync(templatesPath, """
+    await File.WriteAllTextAsync(templatesPath, """
 templates:
   - id: "sample"
     description: "Sample template"
@@ -50,7 +50,7 @@ templates:
           name: "Ana"
 """);
 
-        await File.WriteAllTextAsync(configPath, $"""
+    await File.WriteAllTextAsync(configPath, $"""
 models_file: {modelsPath}
 templates_dir: {templatesDir}
 runs: 3
@@ -62,16 +62,16 @@ output:
   default_path: ./reports/report.json
 """);
 
-        var loader = new YamlConfigLoader();
-        var (app, models, templates) = await loader.LoadAsync(configPath, CancellationToken.None);
+    var loader = new YamlConfigLoader();
+    var (app, models, templates) = await loader.LoadAsync(configPath, CancellationToken.None);
 
-        Assert.Equal(3, app.Runs);
-        Assert.Equal(2, app.Concurrency);
-        Assert.Single(models.Models);
-        Assert.Single(templates.Templates);
-        Assert.Single(templates.Templates[0].Scenarios);
-        Assert.Equal(2, templates.Templates[0].Assertions[0].Enum?.Count);
-        Assert.Equal("general", templates.Templates[0].Vars["agent_domain"]);
-        Assert.Contains("First rule", templates.Templates[0].Vars["extra_rules"]);
-    }
+    Assert.Equal(3, app.Runs);
+    Assert.Equal(2, app.Concurrency);
+    Assert.Single(models.Models);
+    Assert.Single(templates.Templates);
+    Assert.Single(templates.Templates[0].Scenarios);
+    Assert.Equal(2, templates.Templates[0].Assertions[0].Enum?.Count);
+    Assert.Equal("general", templates.Templates[0].Vars["agent_domain"]);
+    Assert.Contains("First rule", templates.Templates[0].Vars["extra_rules"]);
+  }
 }
