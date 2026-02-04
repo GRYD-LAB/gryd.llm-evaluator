@@ -14,7 +14,7 @@ public sealed class AssertionEngineTests
 
         var rules = new List<AssertionRule>
         {
-            new("$.name", "string", true, 3, 2, null, null, null, null, null, null, null),
+            new("$.name", "string", true, 3, 2, null, null, null, null, null, null),
             new("$.age", "integer", true, 2, null, null, 18, 30, null, null, null),
             new("$.verdict", "string", true, 5, null, null, null, null, new List<string> { "yes", "no" }, "^yes$", null)
         };

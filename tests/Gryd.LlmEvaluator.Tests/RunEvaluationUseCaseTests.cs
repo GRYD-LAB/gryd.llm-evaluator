@@ -21,7 +21,7 @@ public sealed class RunEvaluationUseCaseTests
                 new LlmParams(0.2, 1.0, 100),
                 new List<AssertionRule>
                 {
-                    new("$.name", "string", true, 3, 2, null, null, null, null, null, null, null)
+                    new("$.name", "string", true, 3, 2, null, null, null, null, null, null)
                 },
                 new List<ScenarioDefinition>
                 {
@@ -31,7 +31,7 @@ public sealed class RunEvaluationUseCaseTests
                         new List<AssertionRule>(),
                         new List<AssertionRule>
                         {
-                            new("$.name", "string", true, 3, 5, null, null, null, null, null, null, null)
+                            new("$.name", "string", true, 3, 5, null, null, null, null, null, null)
                         }
                     )
                 }
