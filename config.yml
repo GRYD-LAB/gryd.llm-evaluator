@@ -1,0 +1,10 @@
+models_file: ./models.yml
+templates_dir: ./templates
+runs: 3
+concurrency: 3
+free_model_delay_ms: 0
+retry:
+  max_attempts: 2
+  backoff_ms: 500
+output:
+  default_path: ./reports/report.json
